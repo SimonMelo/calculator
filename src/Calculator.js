@@ -1,11 +1,11 @@
-import { format } from 'mathjs'
+import { format, evaluate } from 'mathjs'
 import DOMPurify from 'dompurify'
 
 export default {
   calculateExpression(expression) {
     try {
       
-      const isValidExpression = /^[0-9+\-*/().\s]+$/.test(expression)
+      const isValidExpression = /^[\d+\-*/().\s]|(log|sin|cos|tan)+\(/.test(expression)
 
       if (!isValidExpression) {
         throw new Error('Não é uma expressão válida.')
@@ -13,9 +13,7 @@ export default {
 
       const sanitizedExpression = DOMPurify.sanitize(expression)
 
-      const dynamicFunction = new Function(`return (${sanitizedExpression})`)
-
-      const result = dynamicFunction()
+      const result = evaluate(sanitizedExpression)
 
       let formattedValue
 
@@ -36,4 +34,4 @@ export default {
       return 'Não é uma expressão válida.'
     }
   }
-};
+}
