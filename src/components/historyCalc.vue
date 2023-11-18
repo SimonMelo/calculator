@@ -32,19 +32,27 @@ export default {
     history: Array,
   },
   methods: {
+    //Função para apagar um item do histórico
     deleteItem(index) {
       this.history.splice(index, 1)
     },
+    //Função para apagar um item do histórico
+    deleteAllItens(index) {
+      this.history.splice(index, this.history)
+    },
+    //Função para aumentar a largura do card caso a função adicionada seja grande
     updateCardWidth() {
       const itemCount = this.history.length;
       this.cardWidth = `${Math.max(5 + 10 * itemCount, 20)}rem`;
     }
   },
   watch: {
+    //Aqui adiciono um watcher onde vai ficar observando a função updateCardWidth para fazer a atualização do card de forma correta
     history: {
       handler() {
         this.updateCardWidth();
       },
+      //O deep uso para que fique de olho não só na array history, mas sim de tudo composto
       deep: true,
     },
   },
@@ -55,6 +63,7 @@ export default {
 </script>
 
 <style scoped>
+
 #card-historic {
   background: black !important;
   color: rgb(145, 249, 249, 0.864);
@@ -62,7 +71,4 @@ export default {
   border-radius: 10px;
 }
 
-#content-result {
-
-}
 </style>
