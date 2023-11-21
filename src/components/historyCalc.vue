@@ -6,10 +6,11 @@
     <v-card-text>
       <v-list style="background: rgb(32, 32, 32); border-radius: 10px;">
         <v-list-item style="background: rgb(32, 32, 32); color: rgba(145, 249, 249, 0.864);"
-          v-for="(item, index) in history" :key="index">
-          <v-list-item-content id="content-result">
+        v-for="(item, index) in history" :key="index">
+        <v-list-item-content id="content-result">
             <v-list-item-title style="display: flex; justify-content: start;">
-              {{ item.expression }} = {{ item.result }} <span style="cursor: pointer;" @click="deleteItem(index)" class="material-symbols-outlined ml-3">
+              {{ item.expression }} = {{ item.result }} <span style="cursor: pointer;" @click="deleteItem(index)"
+                class="material-symbols-outlined ml-3">
                 delete_history
               </span>
             </v-list-item-title>
@@ -17,15 +18,23 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <div style="display: flex; justify-content: end;">
+        <v-btn variant="outline" v-if="this.history.length > 0" @click="deleteAllItens" class="mt-4">
+          <strong>Limpar histórico</strong>
+          <span class="material-symbols-outlined">
+            delete_history
+          </span>
+        </v-btn>
+      </div>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
 export default {
-  data(){
-    return{
-      cardWidth:'20rem'
+  data() {
+    return {
+      cardWidth: '20rem'
     }
   },
   props: {
@@ -37,8 +46,8 @@ export default {
       this.history.splice(index, 1)
     },
     //Função para apagar um item do histórico
-    deleteAllItens(index) {
-      this.history.splice(index, this.history)
+    deleteAllItens() {
+      this.history.splice(0, this.history.length)
     },
     //Função para aumentar a largura do card caso a função adicionada seja grande
     updateCardWidth() {
@@ -63,12 +72,10 @@ export default {
 </script>
 
 <style scoped>
-
 #card-historic {
   background: black !important;
   color: rgb(145, 249, 249, 0.864);
   border: 3px solid gray;
   border-radius: 10px;
 }
-
 </style>
