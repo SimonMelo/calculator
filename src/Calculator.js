@@ -6,7 +6,7 @@ export default {
   calculateExpression(expression) {
     try {
       //Máscara para validar se é uma expressão
-      const isValidExpression = /^[\d+\-*/().\s]|(log|sin|cos|tan)+\(/.test(expression)
+      const isValidExpression = /^[\d+\-*/().\s]|(log|sin|cos|tan|sqrt)+\(/.test(expression)
 
       if (!isValidExpression) {
         throw new Error('Não é uma expressão válida.')
