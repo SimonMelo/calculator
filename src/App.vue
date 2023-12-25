@@ -13,9 +13,9 @@
           label="Resultado" />
       </v-card-text>
       <!-- Dentro do v-row é adicionado funcionalidades -->
-      <v-row class="mt-5">
+      <v-row style="display: flex; justify-content: center;" class="mt-5">
 
-        <v-btn class="ml-7" @click="addHistory">
+        <v-btn @click="addHistory">
           <span class="material-symbols-outlined">
             add
           </span>
@@ -152,9 +152,9 @@ export default {
 }
 
 #card-calculator {
-  background: rgba(113, 113, 113, 0.414) !important;
+  background:black !important;
   color: rgb(145, 249, 249, 0.864);
-  border: 3px solid gray;
+  border: 3px solid gold;
   border-radius: 10px;
 }
 
