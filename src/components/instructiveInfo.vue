@@ -8,7 +8,7 @@
         <v-card-text>
           <div class="mb-4">
             <label for="sectionSelect" class="text-sm">Selecione uma seção:</label>
-            <v-select v-model="selectedSection" :items="sections" label="Selecione uma seção" id="sectionSelect"
+            <v-select v-model="selectedSection" :items="sections" id="sectionSelect"
               class="block w-full mt-1 p-2 border rounded"></v-select>
           </div>
 
@@ -53,7 +53,7 @@ export default {
   name: 'CalculadoraInstrucoes',
   data() {
     return {
-      selectedSection: '',
+      selectedSection: 'Selecione',
       sections: [
         'Operações Básicas', 'Operações Avançadas'
       ],
@@ -65,7 +65,7 @@ export default {
 <style scoped>
 #instruction-card {
   background: black !important;
-  color: rgb(145, 249, 249, 0.864);
+  color: white;
   border: 3px solid gray;
   border-radius: 10px;
 }

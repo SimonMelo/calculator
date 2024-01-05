@@ -1,6 +1,6 @@
 <template>
-  <v-container id="container">
-    <v-card class="mr-12" id='card-calculator' width="30vw" height="60vh">
+  <v-container  :style="{ marginTop: isMobile ? dynamicMargin + 'px' : 'auto' }" class="d-flex align-center justify-center">
+    <v-card class="ma-auto" width="400" height="400" id="card-calculator">
       <v-card-title style="display: flex; justify-content: center;">
         Calculadora
       </v-card-title>
@@ -8,12 +8,12 @@
       <!-- Dentro do v-card-text está inserido os inputs para inserir as expressões e o outro para mostrar o resultado -->
       <v-card-text>
         <v-text-field placeholder="3 + 5 * (2 - 4) / 2" style="background: rgb(32, 32, 32); height: 3.5rem;" v-model="expression" outlined label="Expressão"
-          @input="updateResult" autocomplete="off" @keydown="preventEnter" />
+          @input="updateResult" autocomplete="off" />
         <v-text-field style="background: rgb(32, 32, 32); height: 3.5rem;" disabled class="mt-5" v-model="result" outlined
           label="Resultado" />
       </v-card-text>
       <!-- Dentro do v-row é adicionado funcionalidades -->
-      <v-row style="display: flex; justify-content: center;" class="mt-5">
+      <v-row id="row-btn" class="mt-1">
 
         <v-btn @click="addHistory">
           <span class="material-symbols-outlined">
@@ -22,39 +22,37 @@
           <v-tooltip activator="parent" location="top">Adicionar ao histórico</v-tooltip>
         </v-btn>
 
-
-        <v-btn class="ml-7" @click="clearExpression"><span class="material-symbols-outlined">
+        <v-btn class="mt-2" @click="clearExpression"><span class="material-symbols-outlined">
             backspace
           </span>
           <v-tooltip activator="parent" location="top">Limpar</v-tooltip>
         </v-btn>
 
         <!-- Adicionando um dialog para abrir o histórico -->
-        <div class="text-center">
-          <v-btn class="ml-7" @click="dialogHistory = true">
+        
+          <v-btn class="mt-2" @click="dialogHistory = true">
             <span class="material-symbols-outlined">
               history
             </span>
             <v-tooltip activator="parent" location="top">Histórico</v-tooltip>
           </v-btn>
-          <v-dialog v-model="dialogHistory" width="auto">
+          <v-dialog v-model="dialogHistory">
             <v-card>
               <!-- Aqui foi um adicionado o módulo onde está o histórico -->
-              <historyCalc :history="history" />
+              <historyCalc :saveHistory="saveHistory" :history="history" />
               <v-card-actions>
                 <v-btn color="primary" block @click="dialogHistory = false"> X </v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
-        </div>
-        <div class="text-center">
-          <v-btn class="ml-7" @click="dialogHelp = true">
+      
+          <v-btn class="mt-2" @click="dialogHelp = true">
             <span class="material-symbols-outlined">
               info
             </span>
             <v-tooltip activator="parent" location="top">Ajuda</v-tooltip>
           </v-btn>
-          <v-dialog v-model="dialogHelp" width="auto">
+          <v-dialog v-model="dialogHelp" >
             <v-card>
               <!-- Aqui foi um adicionado o módulo onde está as informações instrutivas -->
               <instructiveInfo />
@@ -63,7 +61,6 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-        </div>
       </v-row>
     </v-card>
   </v-container>
@@ -94,7 +91,9 @@ export default {
       history: [],
       dialogHistory: false,
       dialogHelp: false,
-      snackBar
+      snackBar,
+      dynamicMargin: 0,
+      isMobile: false
     }
   },
   methods: {
@@ -136,29 +135,87 @@ export default {
         this.snackBar.snackBarValue = true
         this.history.push(customEntry)
       }
-    }
+      this.saveHistory()
+    },
+
+    calculateDynamicMargin() {
+      const screenHeight = window.innerHeight;
+      const cardHeight = 500; // Altura do seu card
+      const minMargin = 20; // Valor mínimo para a margem superior
+
+      this.dynamicMargin = Math.max(minMargin, (screenHeight - cardHeight) / 2);
+    },
+    checkIsMobile() {
+      // Verificar se a largura da tela é inferior a um determinado ponto de corte (ajuste conforme necessário)
+      this.isMobile = window.innerWidth <= 768;
+    },
+     // Método para carregar o histórico ao iniciar o aplicativo
+     loadHistoryOnStart() {
+      const savedHistory = sessionStorage.getItem('calcHistory');
+      if (savedHistory) {
+        this.history = JSON.parse(savedHistory);
+      }
+    },
+
+    // Método para salvar o histórico no sessionStorage
+    saveHistory() {
+      sessionStorage.setItem('calcHistory', JSON.stringify(this.history));
+    },
+
+    // Método para limpar o histórico
+    clearHistory() {
+      this.history.splice(0, this.history.length);
+      // Ao limpar o histórico, salva no sessionStorage
+      this.saveHistory();
+    },
   },
   components: {
     historyCalc,
     instructiveInfo
+  },
+  mounted() {
+    this.calculateDynamicMargin();
+    window.addEventListener('resize', this.calculateDynamicMargin);
+    this.checkIsMobile();
+    window.addEventListener('resize', this.checkIsMobile);
+
+    // Carregar o histórico ao iniciar o aplicativo
+    this.loadHistoryOnStart();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.calculateDynamicMargin);
+    window.removeEventListener('resize', this.checkIsMobile);
+
+    // Salvar o histórico ao fechar o aplicativo
+    this.saveHistory();
   }
 }
 </script>
 
-<style>
+<style scoped>
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 #container {
   display: flex;
-  margin-left: 10rem;
 }
 
 #card-calculator {
-  background:black !important;
-  color: rgb(145, 249, 249, 0.864);
-  border: 3px solid gold;
+  background: black !important;
+  color: white;
+  border: 2px solid rgba(255, 136, 0, 0.5);
   border-radius: 10px;
 }
 
 #snackbarMSG {
   font-weight: 500;
+}
+
+#row-btn {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 30px 0px 30px;
 }
 </style>

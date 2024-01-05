@@ -5,7 +5,7 @@
     </v-card-title>
     <v-card-text>
       <v-list style="background: rgb(32, 32, 32); border-radius: 10px;">
-        <v-list-item style="background: rgb(32, 32, 32); color: rgba(145, 249, 249, 0.864);"
+        <v-list-item style="background: rgb(32, 32, 32); color: white;"
         v-for="(item, index) in history" :key="index">
         <v-list-item-content id="content-result">
             <v-list-item-title style="display: flex; justify-content: start;">
@@ -39,20 +39,23 @@ export default {
   },
   props: {
     history: Array,
+    saveHistory: Function
   },
   methods: {
     //Função para apagar um item do histórico
     deleteItem(index) {
       this.history.splice(index, 1)
+      this.saveHistory()
     },
     //Função para apagar um item do histórico
     deleteAllItens() {
       this.history.splice(0, this.history.length)
+      this.saveHistory()
     },
     //Função para aumentar a largura do card caso a função adicionada seja grande
     updateCardWidth() {
       const itemCount = this.history.length;
-      this.cardWidth = `${Math.max(5 + 10 * itemCount, 20)}rem`;
+      this.cardWidth = `${Math.max(5 + 10 * itemCount, 100)}%`;
     }
   },
   watch: {
@@ -74,7 +77,7 @@ export default {
 <style scoped>
 #card-historic {
   background: black !important;
-  color: rgb(145, 249, 249, 0.864);
+  color:white;
   border: 3px solid gray;
   border-radius: 10px;
 }

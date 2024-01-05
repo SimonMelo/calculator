@@ -19,8 +19,10 @@ export default {
 
       let formattedValue
 
+      //Verifica se result é do tipo "number" e faz a comparação
       if (typeof result === 'number' && !isNaN(result) && isFinite(result)) {
         if (!Number.isInteger(result)) {
+          //Caso não seja um número inteiro ele retorna no máximo um float com 3 números de precisão
           formattedValue = format(result, { precision: 3 })
         } else {
           formattedValue = result
