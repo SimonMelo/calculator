@@ -7,6 +7,13 @@
         <v-card-text class="paragraph" style="display: flex; justify-content: center;">Aqui, você encontrará informações
           sobre as operações matemáticas que podem ser realizadas e outros tipos de ajuda.</v-card-text>
         <v-card-text>
+          <h3 style="display: flex; justify-content: center; font-weight: bold;" class="paragraph mb-4">Principais informações:</h3>
+            <ul class="list-disc pl-6  mb-5">
+              <li><strong>Adicionar ao histórico:</strong> Utilize o botão com símbolo <code>+</code> para poder salvar suas expressões.
+              </li>
+              <li><strong>Apagar expressões:</strong> Utilize o botão com o <code>X</code> para limpar o campo.</li>
+              <li><strong>Visualizar histórico:</strong> Utilize o botão com o símbolo circular para visualizar as expressões salvas.</li>
+            </ul>
           <div class="mb-4">
             <label for="sectionSelect" class="text-sm">Selecione uma seção para te ajudar:</label>
             <v-select v-model="selectedSection" :items="sections" id="sectionSelect"
@@ -44,17 +51,6 @@
             </ul>
           </div>
 
-
-          <div v-else-if="selectedSection === 'Outras informações'">
-            <h3 class="paragraph mb-2">Outras informações:</h3>
-            <ul class="list-disc pl-6">
-              <li>Adicionar ao histórico: Utilize o botão com símbolo <code>+</code> para poder salvar suas expressões.
-              </li>
-              <li>Apagar expressões: Utilize o botão com o <code>X</code> para limpar o campo.</li>
-              <li>Visualizar histórico: Utilize o botão com o símbolo circular para visualizar as expressões salvas.</li>
-            </ul>
-          </div>
-
           <div v-else-if="selectedSection === 'Expressões de exemplo'">
             <h3 class="paragraph mb-2">Expressões de exemplo:</h3>
             <ul class="list-disc pl-6">
@@ -87,7 +83,7 @@ export default {
   data() {
     return {
       selectedSection: 'Selecione',
-      sections: ['Operações Básicas', 'Operações Avançadas', 'Outras informações', 'Expressões de exemplo'],
+      sections: ['Operações Básicas', 'Operações Avançadas', 'Expressões de exemplo'],
     };
   },
 }
