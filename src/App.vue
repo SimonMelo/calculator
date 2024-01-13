@@ -1,5 +1,6 @@
 <template>
-  <v-container id="container" :style="{ marginTop: isMobile ? dynamicMargin + 'px' : 'auto' }" class="d-flex align-center justify-center">
+  <v-container id="container" :style="{ marginTop: isMobile ? dynamicMargin + 'px' : 'auto' }"
+    class="d-flex align-center justify-center">
     <v-card class="ma-auto" width="400" height="400" id="card-calculator">
       <v-card-title style="display: flex; justify-content: center;">
         Calculadora
@@ -7,8 +8,8 @@
       <v-divider class="border-opacity-75" color="warning"></v-divider>
       <!-- Dentro do v-card-text está inserido os inputs para inserir as expressões e o outro para mostrar o resultado -->
       <v-card-text>
-        <v-text-field placeholder="3 + 5 * (2 - 4) / 2" style="background: rgb(32, 32, 32); height: 3.5rem;" v-model="expression" outlined label="Expressão"
-          @input="updateResult" autocomplete="off" />
+        <v-text-field placeholder="3 + 5 * (2 - 4) / 2" style="background: rgb(32, 32, 32); height: 3.5rem;"
+          v-model="expression" outlined label="Expressão" @input="updateResult" autocomplete="off" />
         <v-text-field style="background: rgb(32, 32, 32); height: 3.5rem;" disabled class="mt-5" v-model="result" outlined
           label="Resultado" />
       </v-card-text>
@@ -29,38 +30,38 @@
         </v-btn>
 
         <!-- Adicionando um dialog para abrir o histórico -->
-        
-          <v-btn class="mt-2" @click="dialogHistory = true">
-            <span class="material-symbols-outlined">
-              history
-            </span>
-            <v-tooltip activator="parent" location="top">Histórico</v-tooltip>
-          </v-btn>
-          <v-dialog v-model="dialogHistory">
-            <v-card>
-              <!-- Aqui foi um adicionado o módulo onde está o histórico -->
-              <historyCalc :saveHistory="saveHistory" :history="history" />
-              <v-card-actions>
-                <v-btn color="primary" block @click="dialogHistory = false"> X </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-      
-          <v-btn class="mt-2" @click="dialogHelp = true">
-            <span class="material-symbols-outlined">
-              info
-            </span>
-            <v-tooltip activator="parent" location="top">Ajuda</v-tooltip>
-          </v-btn>
-          <v-dialog v-model="dialogHelp" >
-            <v-card>
-              <!-- Aqui foi um adicionado o módulo onde está as informações instrutivas -->
-              <instructiveInfo />
-              <v-card-actions>
-                <v-btn color="primary" block @click="dialogHelp = false"> X </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+
+        <v-btn class="mt-2" @click="dialogHistory = true">
+          <span class="material-symbols-outlined">
+            history
+          </span>
+          <v-tooltip activator="parent" location="top">Histórico</v-tooltip>
+        </v-btn>
+        <v-dialog v-model="dialogHistory">
+          <v-card>
+            <!-- Aqui foi um adicionado o módulo onde está o histórico -->
+            <historyCalc :saveHistory="saveHistory" :history="history" />
+            <v-card-actions>
+              <v-btn color="primary" block @click="dialogHistory = false"> X </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <v-btn class="mt-2" @click="dialogHelp = true">
+          <span class="material-symbols-outlined">
+            info
+          </span>
+          <v-tooltip activator="parent" location="top">Ajuda</v-tooltip>
+        </v-btn>
+        <v-dialog v-model="dialogHelp">
+          <v-card>
+            <!-- Aqui foi um adicionado o módulo onde está as informações instrutivas -->
+            <instructiveInfo />
+            <v-card-actions>
+              <v-btn color="primary" block @click="dialogHelp = false"> X </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-row>
     </v-card>
   </v-container>
@@ -104,9 +105,10 @@ export default {
       const expression = this.expression;
       let result = this.result;
       if (expression === '') {
-        result = expression
+        result = expression;
       } else {
-        result = Calculator.calculateExpression(expression)
+        // Substituir π por 3.14 antes de calcular
+        result = Calculator.calculateExpression(expression.replace(/π|pi/g, '3.14'));
       }
       this.result = result;
     },
@@ -149,8 +151,8 @@ export default {
       // Verificar se a largura da tela é inferior a um determinado ponto de corte (ajuste conforme necessário)
       this.isMobile = window.innerWidth <= 768
     },
-     // Método para carregar o histórico ao iniciar o aplicativo
-     loadHistoryOnStart() {
+    // Método para carregar o histórico ao iniciar o aplicativo
+    loadHistoryOnStart() {
       const savedHistory = sessionStorage.getItem('calcHistory')
       if (savedHistory) {
         this.history = JSON.parse(savedHistory)
@@ -174,13 +176,16 @@ export default {
     instructiveInfo
   },
   mounted() {
-    this.calculateDynamicMargin()
-    window.addEventListener('resize', this.calculateDynamicMargin)
-    this.checkIsMobile()
-    window.addEventListener('resize', this.checkIsMobile)
+    this.calculateDynamicMargin();
+    window.addEventListener('resize', this.calculateDynamicMargin);
+    this.checkIsMobile();
+    window.addEventListener('resize', this.checkIsMobile);
 
     // Carregar o histórico ao iniciar o aplicativo
-    this.loadHistoryOnStart()
+    this.loadHistoryOnStart();
+
+    // Abrir automaticamente o diálogo de ajuda ao carregar a página
+    this.dialogHelp = true;
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.calculateDynamicMargin)
@@ -193,7 +198,6 @@ export default {
 </script>
 
 <style scoped>
-
 ::-webkit-scrollbar {
   display: none;
 }
