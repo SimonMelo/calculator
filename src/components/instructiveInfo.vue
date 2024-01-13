@@ -3,19 +3,17 @@
     <div class="w-full max-w-md">
       <v-card id="instruction-card">
         <v-card-title style="display: flex; justify-content: center;" class="headline">Instruções da Calculadora</v-card-title>
-        <v-card-text style="display: flex; justify-content: center;">Aqui, você encontrará informações sobre as operações matemáticas que podem ser
-          realizadas.</v-card-text>
+        <v-card-text class="paragraph" style="display: flex; justify-content: center;">Aqui, você encontrará informações sobre as operações matemáticas que podem ser realizadas.</v-card-text>
         <v-card-text>
           <div class="mb-4">
             <label for="sectionSelect" class="text-sm">Selecione uma seção:</label>
-            <v-select v-model="selectedSection" :items="sections" id="sectionSelect"
-              class="block w-full mt-1 p-2 border rounded"></v-select>
+            <v-select v-model="selectedSection" :items="sections" id="sectionSelect" class="block w-full mt-1 p-2 border rounded"></v-select>
           </div>
 
           <v-divider class="mb-4"></v-divider>
 
           <div v-if="selectedSection === 'Operações Básicas'">
-            <h3 class="mb-2">Operações Básicas:</h3>
+            <h3 class="paragraph mb-2">Operações Básicas:</h3>
             <ul class="list-disc pl-6">
               <li>Adição: Utilize o símbolo <code>+</code> (Exemplo: <code>2 + 3</code>).</li>
               <li>Subtração: Utilize o símbolo <code>-</code> (Exemplo: <code>5 - 2</code>).</li>
@@ -25,22 +23,19 @@
           </div>
 
           <div v-else-if="selectedSection === 'Operações Avançadas'">
-            <h3 class="mb-2">Operações Avançadas:</h3>
+            <h3 class="paragraph mb-2">Operações Avançadas:</h3>
             <ul class="list-disc pl-6">
               <li>Potenciação: Utilize o símbolo <code>^</code> (Exemplo: <code>2^3</code> para 2 elevado à 3).</li>
-              <li>Raiz Quadrada: Utilize <code>sqrt()</code> (Exemplo: <code>sqrt(9)</code> para a raiz quadrada de 9).
-              </li>
-              <li>Funções Trigonométricas: Utilize <code>sin()</code>, <code>cos()</code>, <code>tan()</code> (Exemplo:
-                <code>sin(0.5)</code>).
-              </li>
-              <li>Logaritmo Natural: Utilize <code>log()</code> (Exemplo: <code>log(10)</code> para o logaritmo natural de
-                10).</li>
+              <li>Raiz Quadrada: Utilize <code>sqrt()</code> (Exemplo: <code>sqrt(9)</code> para a raiz quadrada de 9).</li>
+              <li>Funções Trigonométricas: Utilize <code>sin()</code>, <code>cos()</code>, <code>tan()</code> (Exemplo: <code>sin(0.5)</code>).</li>
+              <li>Logaritmo Natural: Utilize <code>log()</code> (Exemplo: <code>log(10)</code> para o logaritmo natural de 10).</li>
             </ul>
           </div>
 
-          <div class="mt-4">
-            <p>Lembre-se, você pode usar a calculadora digitando contas como você faz no papel. Tente escrever diferentes
-              tipos de contas para ver os resultados!</p>
+          <div class="paragraph mt-4">
+            <p>Lembre-se, você pode usar a calculadora digitando contas como você faz no papel. Tente escrever diferentes tipos de contas para ver os resultados!</p>
+            <p>Use parênteses <code>( )</code> para agrupar operações e definir a ordem de avaliação.</p>
+            <p>Experimente diferentes funções matemáticas para explorar ainda mais as capacidades da calculadora.</p>
           </div>
         </v-card-text>
       </v-card>
@@ -54,14 +49,12 @@ export default {
   data() {
     return {
       selectedSection: 'Selecione',
-      sections: [
-        'Operações Básicas', 'Operações Avançadas'
-      ],
+      sections: ['Operações Básicas', 'Operações Avançadas'],
     };
   },
 }
 </script>
-  
+
 <style scoped>
 #instruction-card {
   background: black !important;
@@ -69,5 +62,8 @@ export default {
   border: 3px solid gray;
   border-radius: 10px;
 }
+
+.paragraph {
+  font-size: 18px;
+}
 </style>
-  

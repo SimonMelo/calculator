@@ -1,5 +1,5 @@
 <template>
-  <v-container  :style="{ marginTop: isMobile ? dynamicMargin + 'px' : 'auto' }" class="d-flex align-center justify-center">
+  <v-container id="container" :style="{ marginTop: isMobile ? dynamicMargin + 'px' : 'auto' }" class="d-flex align-center justify-center">
     <v-card class="ma-auto" width="400" height="400" id="card-calculator">
       <v-card-title style="display: flex; justify-content: center;">
         Calculadora
@@ -147,26 +147,26 @@ export default {
     },
     checkIsMobile() {
       // Verificar se a largura da tela é inferior a um determinado ponto de corte (ajuste conforme necessário)
-      this.isMobile = window.innerWidth <= 768;
+      this.isMobile = window.innerWidth <= 768
     },
      // Método para carregar o histórico ao iniciar o aplicativo
      loadHistoryOnStart() {
-      const savedHistory = sessionStorage.getItem('calcHistory');
+      const savedHistory = sessionStorage.getItem('calcHistory')
       if (savedHistory) {
-        this.history = JSON.parse(savedHistory);
+        this.history = JSON.parse(savedHistory)
       }
     },
 
     // Método para salvar o histórico no sessionStorage
     saveHistory() {
-      sessionStorage.setItem('calcHistory', JSON.stringify(this.history));
+      sessionStorage.setItem('calcHistory', JSON.stringify(this.history))
     },
 
     // Método para limpar o histórico
     clearHistory() {
-      this.history.splice(0, this.history.length);
+      this.history.splice(0, this.history.length)
       // Ao limpar o histórico, salva no sessionStorage
-      this.saveHistory();
+      this.saveHistory()
     },
   },
   components: {
@@ -174,17 +174,17 @@ export default {
     instructiveInfo
   },
   mounted() {
-    this.calculateDynamicMargin();
-    window.addEventListener('resize', this.calculateDynamicMargin);
-    this.checkIsMobile();
-    window.addEventListener('resize', this.checkIsMobile);
+    this.calculateDynamicMargin()
+    window.addEventListener('resize', this.calculateDynamicMargin)
+    this.checkIsMobile()
+    window.addEventListener('resize', this.checkIsMobile)
 
     // Carregar o histórico ao iniciar o aplicativo
-    this.loadHistoryOnStart();
+    this.loadHistoryOnStart()
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.calculateDynamicMargin);
-    window.removeEventListener('resize', this.checkIsMobile);
+    window.removeEventListener('resize', this.calculateDynamicMargin)
+    window.removeEventListener('resize', this.checkIsMobile)
 
     // Salvar o histórico ao fechar o aplicativo
     this.saveHistory();
@@ -200,6 +200,7 @@ export default {
 
 #container {
   display: flex;
+  margin-left: 50%;
 }
 
 #card-calculator {
@@ -217,5 +218,11 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 0px 30px 0px 30px;
+}
+
+@media only screen and (max-width: 990px) {
+  #container {
+    margin-left: 0;
+  }
 }
 </style>
