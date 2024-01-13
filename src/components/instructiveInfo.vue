@@ -5,7 +5,7 @@
         <v-card-title style="display: flex; justify-content: center;" class="headline">Instruções da
           Calculadora</v-card-title>
         <v-card-text class="paragraph" style="display: flex; justify-content: center;">Aqui, você encontrará informações
-          sobre as operações matemáticas que podem ser realizadas.</v-card-text>
+          sobre as operações matemáticas que podem ser realizadas e outros tipos de ajuda.</v-card-text>
         <v-card-text>
           <div class="mb-4">
             <label for="sectionSelect" class="text-sm">Selecione uma seção para te ajudar:</label>
