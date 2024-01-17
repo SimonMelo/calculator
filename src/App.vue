@@ -56,7 +56,7 @@
         <v-dialog v-model="dialogHelp">
           <v-card>
             <!-- Aqui foi um adicionado o módulo onde está as informações instrutivas -->
-            <instructiveInfo />
+            <instructiveInfo :selectedSection="selectedSection" />
             <v-card-actions>
               <v-btn color="primary" block @click="dialogHelp = false"> X </v-btn>
             </v-card-actions>
@@ -68,6 +68,21 @@
   <v-snackbar :timeout="2000" :color="snackBar.snackBarColor" v-model="snackBar.snackBarValue" vertical>
     <h3 id="snackbarMSG">{{ snackBar.snackBarMessage }}</h3>
   </v-snackbar>
+
+  <v-dialog v-model="showSuggestionSnackbar">
+  <v-card id="cardSuggestion">
+    <v-card-title style="display: flex; justify-content: center; font-size: 25px;">
+      {{ suggestionType === 'squared' ? 'Sugestão para "²"' : 'Sugestão para "√"' }}
+    </v-card-title>
+    <v-card-text style="display: flex; justify-content: center; font-size: 18px; ">
+      {{ suggestionType === 'squared' ? 'Considere usar 2 ^ 2 para elevar ao quadrado. Caso queira ver mais alguns exemplos de expressões, clique em Ver.' : 'Considere usar sqrt() para representar a raiz quadrada. Caso queira ver mais alguns exemplos de expressões, clique em Ver.' }}
+    </v-card-text>
+    <v-card-actions style="display: flex; justify-content: flex-end;">
+      <v-btn @click="showSuggestionSnackbar = false">Fechar</v-btn>
+      <v-btn @click="openSuggestionModal">Ver</v-btn>
+    </v-card-actions>
+  </v-card>
+</v-dialog>
 </template>
 
 <script>
@@ -94,24 +109,47 @@ export default {
       dialogHelp: false,
       snackBar,
       dynamicMargin: 0,
-      isMobile: false
+      isMobile: false,
+      showSuggestionSnackbar: false,
+      selectedSection: 'Selecione',
     }
   },
   methods: {
 
+    openSuggestionModal() {
+      this.selectedSection = "Expressões de exemplo"
+      this.showSuggestionSnackbar = false
+      this.dialogHelp = true
+    },
+
     //Função que avalia em tempo real se é uma função e mostra o resultado
 
     updateResult() {
-      const expression = this.expression;
-      let result = this.result;
-      if (expression === '') {
-        result = expression;
-      } else {
-        // Substituir π por 3.14 antes de calcular
-        result = Calculator.calculateExpression(expression.replace(/π|pi/g, '3.14'));
-      }
-      this.result = result;
-    },
+    const expression = this.expression;
+    let result = this.result;
+
+    // Verifica se há um "²" na expressão e exibe o v-snackbar de sugestão
+    if (expression.includes('²')) {
+      this.suggestionType = 'squared'
+      this.showSuggestionSnackbar = true
+      return
+    }
+
+    if (expression.includes('√')) {
+      this.suggestionType = 'squareRoot'
+      this.showSuggestionSnackbar = true
+      return
+    }
+
+    if (expression === "") {
+      result = expression
+    } else {
+      // Substituir π por 3.14 antes de calcular
+      result = Calculator.calculateExpression(expression.replace(/π|pi/g, '3.14'))
+    }
+
+    this.result = result
+  },
 
     //Função que limpa os campos da expressão e resultado
 
@@ -141,11 +179,11 @@ export default {
     },
 
     calculateDynamicMargin() {
-      const screenHeight = window.innerHeight;
-      const cardHeight = 500; // Altura do seu card
-      const minMargin = 20; // Valor mínimo para a margem superior
+      const screenHeight = window.innerHeight
+      const cardHeight = 500 // Altura do seu card
+      const minMargin = 20 // Valor mínimo para a margem superior
 
-      this.dynamicMargin = Math.max(minMargin, (screenHeight - cardHeight) / 2);
+      this.dynamicMargin = Math.max(minMargin, (screenHeight - cardHeight) / 2)
     },
     checkIsMobile() {
       // Verificar se a largura da tela é inferior a um determinado ponto de corte (ajuste conforme necessário)
@@ -176,31 +214,29 @@ export default {
     instructiveInfo
   },
   mounted() {
-    this.calculateDynamicMargin();
-    window.addEventListener('resize', this.calculateDynamicMargin);
-    this.checkIsMobile();
-    window.addEventListener('resize', this.checkIsMobile);
+    this.calculateDynamicMargin()
+    window.addEventListener('resize', this.calculateDynamicMargin)
+    this.checkIsMobile()
+    window.addEventListener('resize', this.checkIsMobile)
 
     // Carregar o histórico ao iniciar o aplicativo
-    this.loadHistoryOnStart();
+    this.loadHistoryOnStart()
 
     // Abrir automaticamente o diálogo de ajuda ao carregar a página
-    this.dialogHelp = true;
+    this.dialogHelp = true
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.calculateDynamicMargin)
     window.removeEventListener('resize', this.checkIsMobile)
 
     // Salvar o histórico ao fechar o aplicativo
-    this.saveHistory();
+    this.saveHistory()
   }
 }
 </script>
 
 <style scoped>
-::-webkit-scrollbar {
-  display: none;
-}
+
 
 #container {
   display: flex;
@@ -222,6 +258,13 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 0px 30px 0px 30px;
+}
+
+#cardSuggestion {
+  background: black !important;
+  color: white;
+  border: 3px solid gray;
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 990px) {

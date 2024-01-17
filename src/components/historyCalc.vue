@@ -1,5 +1,5 @@
 <template>
-  <v-card id="card-historic" :style="{ width: cardWidth }">
+  <v-card id="card-historic" style="width: 100% ">
     <v-card-title style="display: flex; justify-content: center;">
       Histórico
     </v-card-title>
@@ -52,24 +52,6 @@ export default {
       this.history.splice(0, this.history.length)
       this.saveHistory()
     },
-    //Função para aumentar a largura do card caso a função adicionada seja grande
-    updateCardWidth() {
-      const itemCount = this.history.length;
-      this.cardWidth = `${Math.max(5 + 10 * itemCount, 100)}%`;
-    }
-  },
-  watch: {
-    //Aqui adiciono um watcher onde vai ficar observando a função updateCardWidth para fazer a atualização do card de forma correta
-    history: {
-      handler() {
-        this.updateCardWidth();
-      },
-      //O deep uso para que fique de olho não só na array history, mas sim de tudo composto
-      deep: true,
-    },
-  },
-  mounted() {
-    this.updateCardWidth()
   },
 };
 </script>

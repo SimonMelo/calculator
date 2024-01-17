@@ -16,13 +16,13 @@
             </ul>
           <div class="mb-4">
             <label for="sectionSelect" class="text-sm">Selecione uma seção para te ajudar:</label>
-            <v-select v-model="selectedSection" :items="sections" id="sectionSelect"
+            <v-select v-model="this.selectedSection" :items="sections" id="sectionSelect"
               class="block w-full mt-1 p-2 border rounded"></v-select>
           </div>
 
           <v-divider class="mb-4"></v-divider>
 
-          <div v-if="selectedSection === 'Operações Básicas'">
+          <div v-if="this.selectedSection === 'Operações Básicas'">
             <h3 class="paragraph mb-2">Operações Básicas:</h3>
             <ul class="list-disc pl-6">
               <li>Adição: Utilize o símbolo <code>+</code> (Exemplo: <code>2 + 3</code>).</li>
@@ -32,7 +32,7 @@
             </ul>
           </div>
 
-          <div v-else-if="selectedSection === 'Operações Avançadas'">
+          <div v-else-if="this.selectedSection === 'Operações Avançadas'">
             <h3 class="paragraph mb-2">Operações Avançadas:</h3>
             <ul class="list-disc pl-6">
               <li>Potenciação: Utilize o símbolo <code>^</code> (Exemplo: <code>2^3</code> para 2 elevado à 3).</li>
@@ -51,14 +51,14 @@
             </ul>
           </div>
 
-          <div v-else-if="selectedSection === 'Expressões de exemplo'">
+          <div v-else-if="this.selectedSection === 'Expressões de exemplo'">
             <h3 class="paragraph mb-2">Expressões de exemplo:</h3>
-            <ul class="list-disc pl-6">
+            <ul class="pl-6">
               <li><code>(2 x 3 - 4)² + 10</code> (Escrita comum) = <code>sqrt(2 * 3 - 4) + 10</code> (Calculadora).</li>
               <li><code>√169</code> (Escrita comum) = <code>sqrt(169)</code> (Calculadora).</li>
               <li><code>2 + 3 * 4</code> (Escrita comum) = <code>2 + (3 * 4)</code> (Calculadora).</li>
-              <li><code>sin(30) + cos(60)</code> (Escrita comum) = <code>sen(30) + cos(60)</code> (Calculadora).</li>
-              <li><code>log(1000)</code> (Escrita comum) = <code>log10(1000)</code> (Calculadora).</li>
+              <li><code>sen(30) + cos(60)</code> (Escrita comum) = <code>sin(30) + cos(60)</code> (Calculadora).</li>
+              <li><code>log10(1000)</code> (Escrita comum) = <code>log(1000)</code> (Calculadora).</li>
               <li><code>2^3</code> (Escrita comum) = <code>2³</code> (Calculadora).</li>
               <li><code>10 / (2 + 3)</code> (Escrita comum) = <code>10 / (2 + 3)</code> (Calculadora).</li>
             </ul>
@@ -82,9 +82,11 @@ export default {
   name: 'CalculadoraInstrucoes',
   data() {
     return {
-      selectedSection: 'Selecione',
       sections: ['Operações Básicas', 'Operações Avançadas', 'Expressões de exemplo'],
-    };
+    }
+  },
+  props:{
+    selectedSection: String
   },
 }
 </script>
