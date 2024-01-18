@@ -75,7 +75,7 @@
       {{ suggestionType === 'squared' ? 'Sugestão para "²"' : 'Sugestão para "√"' }}
     </v-card-title>
     <v-card-text style="display: flex; justify-content: center; font-size: 18px; ">
-      {{ suggestionType === 'squared' ? 'Considere usar 2 ^ 2 para elevar ao quadrado. Caso queira ver mais alguns exemplos de expressões, clique em Ver.' : 'Considere usar sqrt() para representar a raiz quadrada. Caso queira ver mais alguns exemplos de expressões, clique em Ver.' }}
+      {{ suggestionType === 'squared' ? 'Considere usar (valor) ^ 2 para elevar ao quadrado. Caso queira ver mais alguns exemplos de expressões, clique em Ver.' : 'Considere usar sqrt(valor) para representar a raiz quadrada. Caso queira ver mais alguns exemplos de expressões, clique em Ver.' }}
     </v-card-text>
     <v-card-actions style="display: flex; justify-content: flex-end;">
       <v-btn @click="showSuggestionSnackbar = false">Fechar</v-btn>
