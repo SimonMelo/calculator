@@ -41,8 +41,8 @@
               <li>Potenciação: Utilize o símbolo <code>^</code> (Exemplo: <code>2^3</code> para 2 elevado à 3).</li>
               <li>Raiz Quadrada: Utilize <code>sqrt()</code> (Exemplo: <code>sqrt(9)</code> para a raiz quadrada de 9).
               </li>
-              <li>Funções Trigonométricas: Utilize <code>sin()</code>, <code>cos()</code>, <code>tan()</code> (Exemplo:
-                <code>sin(0.5)</code>).
+              <li>Funções Trigonométricas: Utilize <code>sen()</code>, <code>cos()</code>, <code>tan()</code> (Exemplo:
+                <code>sen(0.5)</code>).
               </li>
               <li>Logaritmo Natural: Utilize <code>log()</code> (Exemplo: <code>log(10)</code> para o logaritmo natural de
                 10).</li>
@@ -60,7 +60,7 @@
               <li><code>(2 x 3 - 4)² + 10</code> (Escrita comum) = <code>sqrt(2 * 3 - 4) + 10</code> (Calculadora).</li>
               <li><code>√169</code> (Escrita comum) = <code>sqrt(169)</code> (Calculadora).</li>
               <li><code>2 + 3 * 4</code> (Escrita comum) = <code>2 + (3 * 4)</code> (Calculadora).</li>
-              <li><code>sen(30) + cos(60)</code> (Escrita comum) = <code>sin(30) + cos(60)</code> (Calculadora).</li>
+              <li><code>sen(30) + cos(60)</code> (Escrita comum) = <code>sen(30) + cos(60)</code> (Calculadora).</li>
               <li><code>log10(1000)</code> (Escrita comum) = <code>log(1000)</code> (Calculadora).</li>
               <li><code>2^3</code> (Escrita comum) = <code>2³</code> (Calculadora).</li>
               <li><code>10 / (2 + 3)</code> (Escrita comum) = <code>10 / (2 + 3)</code> (Calculadora).</li>
