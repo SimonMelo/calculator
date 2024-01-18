@@ -74,7 +74,7 @@
     <v-card-title style="display: flex; justify-content: center; font-size: 25px;">
       {{ suggestionType === 'squared' ? 'Sugestão para "²"' : 'Sugestão para "√"' }}
     </v-card-title>
-    <v-card-text style="display: flex; justify-content: center; font-size: 18px; ">
+    <v-card-text style="display: flex; justify-content: center; font-size: 20px; ">
       {{ suggestionType === 'squared' ? 'Considere usar (valor) ^ 2 para elevar ao quadrado. Caso queira ver mais alguns exemplos de expressões, clique em Ver.' : 'Considere usar sqrt(valor) para representar a raiz quadrada. Caso queira ver mais alguns exemplos de expressões, clique em Ver.' }}
     </v-card-text>
     <v-card-actions style="display: flex; justify-content: flex-end;">
@@ -145,7 +145,7 @@ export default {
       result = expression
     } else {
       // Substituir π por 3.14 antes de calcular
-      result = Calculator.calculateExpression(expression.replace(/π|pi/g, '3.14'))
+      result = Calculator.calculateExpression(expression.replace(/π|pi/g, '3.14').replace('sen', 'sin'))
     }
 
     this.result = result
