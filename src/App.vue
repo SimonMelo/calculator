@@ -56,7 +56,7 @@
         <v-dialog v-model="dialogHelp">
           <v-card>
             <!-- Aqui foi um adicionado o módulo onde está as informações instrutivas -->
-            <instructiveInfo :selectedSection="selectedSection" />
+            <instructiveInfo :selectedSection="selectedSection" @update:selectedSection="updateSelectedSection"/>
             <v-card-actions>
               <v-btn color="primary" block @click="dialogHelp = false"> X </v-btn>
             </v-card-actions>
@@ -208,6 +208,10 @@ export default {
       // Ao limpar o histórico, salva no sessionStorage
       this.saveHistory()
     },
+
+    updateSelectedSection(value) {
+      this.selectedSection = value
+    }
   },
   components: {
     historyCalc,

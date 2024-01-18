@@ -7,16 +7,19 @@
         <v-card-text class="paragraph" style="display: flex; justify-content: center;">Aqui, você encontrará informações
           sobre as operações matemáticas que podem ser realizadas e outros tipos de ajuda.</v-card-text>
         <v-card-text>
-          <h3 style="display: flex; justify-content: center; font-weight: bold;" class="paragraph mb-4">Principais informações:</h3>
-            <ul class="list-disc pl-6  mb-5">
-              <li><strong>Adicionar ao histórico:</strong> Utilize o botão com símbolo <code>+</code> para poder salvar suas expressões.
-              </li>
-              <li><strong>Apagar expressões:</strong> Utilize o botão com o <code>X</code> para limpar o campo.</li>
-              <li><strong>Visualizar histórico:</strong> Utilize o botão com o símbolo circular para visualizar as expressões salvas.</li>
-            </ul>
+          <h3 style="display: flex; justify-content: center; font-weight: bold;" class="paragraph mb-4">Principais
+            informações:</h3>
+          <ul class="list-disc pl-6  mb-5">
+            <li><strong>Adicionar ao histórico:</strong> Utilize o botão com símbolo <code>+</code> para poder salvar suas
+              expressões.
+            </li>
+            <li><strong>Apagar expressões:</strong> Utilize o botão com o <code>X</code> para limpar o campo.</li>
+            <li><strong>Visualizar histórico:</strong> Utilize o botão com o símbolo circular para visualizar as
+              expressões salvas.</li>
+          </ul>
           <div class="mb-4">
             <label for="sectionSelect" class="text-sm">Selecione uma seção para te ajudar:</label>
-            <v-select v-model="this.selectedSection" :items="sections" id="sectionSelect"
+            <v-select :modelValue="selectedSection" @update:modelValue="emitUpdate" :items="sections" id="sectionSelect"
               class="block w-full mt-1 p-2 border rounded"></v-select>
           </div>
 
@@ -85,9 +88,14 @@ export default {
       sections: ['Operações Básicas', 'Operações Avançadas', 'Expressões de exemplo'],
     }
   },
-  props:{
+  props: {
     selectedSection: String
   },
+  methods: {
+    emitUpdate(value) {
+      this.$emit('update:selectedSection', value);
+    }
+  }
 }
 </script>
 
@@ -101,5 +109,4 @@ export default {
 
 .paragraph {
   font-size: 18px;
-}
-</style>
+}</style>
